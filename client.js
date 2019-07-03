@@ -1,12 +1,5 @@
 const net = require('net');
 
-const setupInput = () => {
-  const stdin = process.stdin;
-  stdin.setRawMode(true);
-  stdin.setEncoding('utf8');
-  stdin.resume();
-  return stdin;
-};
 
 const connect = () => {
   const conn = net.createConnection({
@@ -23,10 +16,9 @@ const connect = () => {
   conn.on('data', data => {
     console.log('Server says: ', data);
   });
-  setupInput();
+
   conn.on('connect', () => {
     conn.write('Name: XHX');
-    conn.write(`Move: ${setupInput()}`);
     // setInterval(()=>{
     //   conn.write('Move: down');
 
