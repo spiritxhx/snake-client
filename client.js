@@ -1,4 +1,13 @@
 const net = require('net');
+
+const setupInput = () => {
+  const stdin = process.stdin;
+  stdin.setRawMode(true);
+  stdin.setEncoding('utf8');
+  stdin.resume();
+  return stdin;
+};
+
 const connect = () => {
   const conn = net.createConnection({
     host: '192.168.0.102',
@@ -7,23 +16,24 @@ const connect = () => {
   // interpret incoming data as text
   conn.setEncoding('utf8');
 
-  conn.on('connect', ()=>{
+  conn.on('connect', () => {
     console.log('Successfully connected to game server');
   });
 
   conn.on('data', data => {
     console.log('Server says: ', data);
   });
-  
-  conn.on('connect', ()=>{
+  setupInput();
+  conn.on('connect', () => {
     conn.write('Name: XHX');
-    setInterval(()=>{
-      conn.write('Move: down');
+    conn.write(`Move: ${setupInput()}`);
+    // setInterval(()=>{
+    //   conn.write('Move: down');
 
-    },100);
+    // },100);
   });
 
   return conn;
 };
 
-module.exports = {connect};
+module.exports = { connect };
