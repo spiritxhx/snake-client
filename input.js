@@ -28,6 +28,9 @@ const handleUserInput = stdin.on('data', (key) => {
   if (key === 'd') {
     connection.write('Move: right');
   }
+  if (key === 'l') {
+    connection.write('Say: PFF');
+  }
 });
 
 
