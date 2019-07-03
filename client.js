@@ -1,10 +1,10 @@
 const net = require('net');
-
+const { IP, PORT } = require('./constants');
 
 const connect = () => {
   const conn = net.createConnection({
-    host: '192.168.0.102',
-    port: 50541
+    host: IP,
+    port: PORT
   });
   // interpret incoming data as text
   conn.setEncoding('utf8');
@@ -19,10 +19,9 @@ const connect = () => {
 
   conn.on('connect', () => {
     conn.write('Name: XHX');
-    // setInterval(()=>{
-    //   conn.write('Move: down');
-
-    // },100);
+    setInterval(() => {
+      conn.write('Name: XHX');
+    }, 5000);
   });
 
   return conn;
